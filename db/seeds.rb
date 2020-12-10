@@ -5,9 +5,18 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require "faker"
 
+puts "Deleting old data"
+
+ShipmentItem.destroy_all
+Shipment.destroy_all
+Company.destroy_all
+
+puts "Creating new company"
 company = Company.create!(name: 'New Co')
 
+puts "Seeding new shipments and shipment item data"
 5.times do
   shipment = Shipment.create(
     company_id: company.id,
@@ -18,12 +27,12 @@ company = Company.create!(name: 'New Co')
   )
 
   20.times do
-    shipment.shipment_items.create(
+    ShipmentItem.create(
       description: %w(iPhone iPad Watch iMac MacBook Mouse Keyboard).sample,
       weight: (1..5).to_a.sample,
       shipment_id: shipment.id
     )
   end
-
-  shipment.save
 end
+
+puts "Finished"

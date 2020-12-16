@@ -7,6 +7,7 @@ gem 'puma'
 gem 'jbuilder'
 gem "aftership", "~> 4.3.1"
 gem 'dotenv-rails', groups: [:development, :test]
+gem 'httparty'
 
 group :development, :test do
   gem 'byebug', platform: :mri

@@ -1,16 +1,17 @@
+require 'dotenv/load'
+require 'aftership'
+require 'json'
+
 class ShipmentsController < ApplicationController
   def index
     @shipments = Shipment.all
   end
 
   def show
-    @shipment = Shipment.find(params[:id])
-  end
-
-  private
-
-  def company_params
     @company = Company.find(params[:company_id])
-  end
+    @shipment = @company.shipments.find(params[:id])
 
+    AfterShip.api_key = ENV['AFTERSHIP_KEY']
+    @tracker = AfterShip::V4::Tracking.get(@shipment.slug, @shipment.tracking_number)
+  end
 end

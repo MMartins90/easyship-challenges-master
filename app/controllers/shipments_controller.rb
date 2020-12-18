@@ -4,7 +4,7 @@ class ShipmentsController < ApplicationController
   end
 
   def show
-    @shipment = Shipment.find(params[:id])
+    @shipment = @company.shipments.find(params[:id])
   end
 
   private

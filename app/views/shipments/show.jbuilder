@@ -7,14 +7,14 @@ json.shipment do
   json.created_at           @shipment.created_at.strftime('%A, %d %B %Y at%l:%M %p')
   json.items                @shipment.group_items
 
-  if @tracker.present?
-    json.tracker do
-      json.status                   @tracker.status
-      json.current_location         @tracker.current_location
-      json.last_checkpoint_message  @tracker.last_checkpoint_message
-      json.last_checkpoint_time     @tracker.last_checkpoint_time
+  if @tracking["checkpoints"].present?
+    json.tracking do
+      json.status                  @tracking["tag"]
+      json.current_location        @tracking["location"]
+      json.last_checkpoint_message @tracking["message"]
+      json.last_checkpoint_time    @tracking["checkpoint_time"]
     end
   else
-    json.tracker 'No tracking information is available at this time'
+    json.tracking "No tracking information present"
   end
 end
